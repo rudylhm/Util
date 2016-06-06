@@ -751,11 +751,18 @@ namespace Util.Security
         /// <returns></returns>
         public static string RSADecrypt(string privatekey, string content)
         {
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            byte[] cipherbytes;
-            rsa.FromXmlString(privatekey);
-            cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
-            return Encoding.UTF8.GetString(cipherbytes);
+            try
+            {
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                byte[] cipherbytes;
+                rsa.FromXmlString(privatekey);
+                cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
+                return Encoding.UTF8.GetString(cipherbytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
