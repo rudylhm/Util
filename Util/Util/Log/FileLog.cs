@@ -27,7 +27,20 @@ namespace Util.Log
 
         protected override bool WriteLog(string logType, string log)
         {
-            throw new NotImplementedException();
+            try
+            {
+                FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.Write("{" + logType + "}-----" + log);
+                sw.Flush();
+                sw.Close();
+                fs.Close();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
 
