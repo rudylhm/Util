@@ -12,6 +12,7 @@ namespace Util.Log
     {
         private static string defaultPath = "\\Log\\";
         private static string path;
+        private static string fileName;
         public FileLog() : this(defaultPath)
         {
 
@@ -20,24 +21,27 @@ namespace Util.Log
         public FileLog(string savePath)
         {
             var now = DateTime.Now;
-            string datePath = now.Year + "\\" + now.Month + "\\" + now.Day + ".log";
-            string realPath = HttpContext.Current.Server.MapPath(savePath + datePath);
-
+            string datePath = now.Year + "\\" + now.Month + "\\";
+            fileName = now.Day + ".log";
         }
 
         protected override bool WriteLog(string logType, string log)
         {
             try
             {
-                FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                FileStream fs = new FileStream(path + fileName, FileMode.OpenOrCreate);
                 StreamWriter sw = new StreamWriter(fs);
-                sw.Write("{" + logType + "}-----" + log);
+                sw.Write("(" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "){" + logType + "}-----" + log);
                 sw.Flush();
                 sw.Close();
                 fs.Close();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
