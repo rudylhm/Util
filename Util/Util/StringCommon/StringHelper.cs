@@ -146,5 +146,31 @@ namespace Util.StringCommon
         {
             return dict.OrderBy(item => item.Key).ToDictionary(key => key.Key, value => value.Value);
         }
+
+        /// <summary>
+        /// 隐藏字符串中间的字符
+        /// </summary>
+        /// <param name="resourceStr">原始字符串</param>
+        /// <param name="frontShowCount">字符串前段展示字符数</param>
+        /// <param name="bottomShowCount">字符串尾段展示字符数</param>
+        /// <param name="replaceStr">隐藏字符显示字符串(默认为*)</param>
+        /// <returns>生成的隐藏中间部分字符</returns>
+        public static string HideMiddleStringChar(string resourceStr, int frontShowCount, int bottomShowCount, string replaceStr = "*")
+        {
+            int resourceLength = resourceStr.Length;
+            if (resourceLength < frontShowCount || resourceLength < bottomShowCount)
+            {
+                throw new ArgumentException("字符串长度小于要展示的长度");
+            }
+            string frontTargetStr = resourceStr.Substring(0, frontShowCount);
+            string bottomTargetStr = resourceStr.Substring(resourceLength - bottomShowCount, bottomShowCount);
+            string midTargetStr = string.Empty;
+            for (int i = 0; i < resourceLength - frontShowCount - bottomShowCount; i++)
+            {
+                midTargetStr += replaceStr;
+            }
+            return frontTargetStr + midTargetStr + bottomTargetStr;
+        }
+
     }
 }
