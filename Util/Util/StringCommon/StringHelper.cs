@@ -172,5 +172,31 @@ namespace Util.StringCommon
             return frontTargetStr + midTargetStr + bottomTargetStr;
         }
 
+        /// <summary>
+        /// 将字符串中间的字符用X个替换字符显示
+        /// </summary>
+        /// <param name="resourceStr">原始字符串</param>
+        /// <param name="frontShowCount">字符串前段展示字符数</param>
+        /// <param name="bottomShowCount">字符串尾段展示字符数</param>
+        /// <param name="hideReplaceCount">隐藏的部分用几个替换字符显示</param>
+        /// <param name="replaceStr">隐藏字符显示字符串(默认为*)</param>
+        /// <returns>生成的隐藏中间部分字符</returns>
+        public static string SubMiddleStringChar(string resourceStr, int frontShowCount, int bottomShowCount, int hideReplaceCount, string replaceStr = "*")
+        {
+            int resourceLength = resourceStr.Length;
+            if (frontShowCount + bottomShowCount >= resourceLength)
+            {
+                return resourceStr;
+            }
+            string frontTargetStr = resourceStr.Substring(0, frontShowCount);
+            string bottomTargetStr = resourceStr.Substring(resourceLength - bottomShowCount, bottomShowCount);
+            string midTargetStr = string.Empty;
+            for (int i = 0; i < hideReplaceCount; i++)
+            {
+                midTargetStr += replaceStr;
+            }
+            return frontTargetStr + midTargetStr + bottomTargetStr;
+        }
+
     }
 }
