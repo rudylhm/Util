@@ -53,6 +53,7 @@
     <Compile Include="DB\Factory\MySqlFactory.cs" />
     <Compile Include="DB\Helper\MySqlHelper.cs" />
     <Compile Include="DB\Helper\SqlServerHelper.cs" />
+    <Compile Include="Files\FileHelper.cs" />
     <Compile Include="Http\Cookie\CookieHelper.cs" />
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Http\HttpHelper.cs" />
