@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using com.google.zxing;
 using ByteMatrix = com.google.zxing.common.ByteMatrix;
-using EAN13Writer = com.google.zxing.oned.EAN13Writer;
-using EAN8Writer = com.google.zxing.oned.EAN8Writer;
 using MultiFormatWriter = com.google.zxing.MultiFormatWriter;
 
 namespace Util.BarCode
