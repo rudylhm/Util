@@ -19,6 +19,35 @@ namespace Util.Files
             return fileName.Substring(fileName.LastIndexOf(".") + 1, (fileName.Length - fileName.LastIndexOf(".") - 1));
         }
 
+
+        public static bool IsExistFile(string fileFullPath)
+        {
+            string directoryPath = GetFileDirectory(fileFullPath);
+            if (Directory.Exists(directoryPath))
+            {
+                if (File.Exists(fileFullPath))
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 从文件路径获取其所在目录
+        /// </summary>
+        ///<param name="path">文件路径</param>
+        /// <returns>目录路径</returns>
+        public static string GetFileDirectory(string path)
+        {
+            if (path.EndsWith("\\"))
+            {
+                return path;
+            }
+            return path.Substring(0, path.LastIndexOf("\\"));
+        }
+
         /// <summary>
         /// 写文件
         /// </summary>
@@ -61,6 +90,23 @@ namespace Util.Files
                 stream.Read(content, 0, content.Length);
                 stream.Seek(0, SeekOrigin.Begin);
                 return WriteFile(filePath, fileName, content);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public static bool DeleteFile(string fileFullPath)
+        {
+            try
+            {
+                if (!File.Exists(fileFullPath))
+                {
+                    return true;
+                }
+                File.Delete(fileFullPath);
+                return true;
             }
             catch (Exception ex)
             {

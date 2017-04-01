@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -11,9 +12,9 @@ namespace Util.Mail
     public class MailHelper
     {
         //定义邮件服务器及系统账户信息
-        private static String MailHost = "smtp.qq.com";
-        private static String SenderAddress = "doyogame@qq.com";
-        private static String SenderPassword = "Duoyoukeji@Rudy1";
+        //private static String MailHost = "smtp.qq.com";
+        //private static String SenderAddress = "doyogame@qq.com";
+        //private static String SenderPassword = "Duoyoukeji@Rudy1";
 
         #region 发送邮件
 
@@ -24,7 +25,7 @@ namespace Util.Mail
         /// <param name="subject">邮件主题</param>
         /// <param name="body">邮件内容</param>
         /// <param name="isBodyHtml"></param>
-        public static void Send(string mailToArrayStr, String subject, String body, bool isBodyHtml)
+        public static void Send(string SenderAddress, string SenderPassword, string MailHost, string mailToArrayStr, string subject, string body, bool isBodyHtml, byte[] attachmentContent = null, string attachmentName = "")
         {
             //定义邮件消息对象
             var mailMessage = new MailMessage { From = new MailAddress(SenderAddress) };
@@ -43,12 +44,17 @@ namespace Util.Mail
             mailMessage.IsBodyHtml = isBodyHtml;
             mailMessage.BodyEncoding = Encoding.UTF8;
             mailMessage.SubjectEncoding = Encoding.UTF8;
-
+            if (attachmentContent != null)
+            {
+                MemoryStream ms = new MemoryStream(attachmentContent);
+                mailMessage.Attachments.Add(new Attachment(ms, attachmentName));
+            }
             //初始化邮件发送客户端
             var smtp = new SmtpClient(MailHost)
-                {
-                    Credentials = new NetworkCredential(SenderAddress, SenderPassword)
-                };
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(SenderAddress, SenderPassword)
+            };
 
 
             //发送邮件
