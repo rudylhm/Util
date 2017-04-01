@@ -173,6 +173,31 @@ namespace Util.StringCommon
         }
 
         /// <summary>
+        /// 限制显示的字符数长度(超长后用hideReplaceCount个filledStr代替)
+        /// </summary>
+        /// <param name="resourceStr">原始字符串</param>
+        /// <param name="showCount">显示的最长字符串</param>
+        /// <param name="hideReplaceCount">显示替代字符串长度</param>
+        /// <param name="filledStr">替代的字符串</param>
+        /// <returns></returns>
+        public static string LimitShowStringLength(string resourceStr, int showCount, int hideReplaceCount = 3, string filledStr = ".")
+        {
+            if (resourceStr.Length > showCount)
+            {
+                if (showCount <= hideReplaceCount)
+                {
+                    throw new ArgumentException("隐藏的字符串不能大于显示的字符串长度");
+                }
+                resourceStr = resourceStr.Substring(0, showCount - hideReplaceCount);
+                for (int i = 0; i < hideReplaceCount; i++)
+                {
+                    resourceStr += filledStr;
+                }
+            }
+            return resourceStr;
+        }
+
+        /// <summary>
         /// 将字符串中间的字符用X个替换字符显示
         /// </summary>
         /// <param name="resourceStr">原始字符串</param>

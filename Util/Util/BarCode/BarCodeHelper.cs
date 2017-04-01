@@ -51,48 +51,6 @@ namespace Util.BarCode
         }
 
         /// <summary>
-        /// 生成条码(EAN_16 编码)
-        /// </summary>
-        /// <param name="content">内容</param>
-        /// <param name="width">宽</param>
-        /// <param name="height">长</param>
-        /// <returns></returns>
-        public static Bitmap CreateBarCode_PDF417(string content, int width = 32, int height = 16)
-        {
-            // 生成一维码  
-            ByteMatrix byteMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.PDF417, width, height);
-            try
-            {
-                return toBitmap(byteMatrix);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 生成条码(CODE_128 编码)
-        /// </summary>
-        /// <param name="content">内容</param>
-        /// <param name="width">宽</param>
-        /// <param name="height">长</param>
-        /// <returns></returns>
-        public static Bitmap CreateBarCode_CODE128(string content, int width = 32, int height = 16)
-        {
-            // 生成一维码  
-            ByteMatrix byteMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.CODE_128, width, height);
-            try
-            {
-                return toBitmap(byteMatrix);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// 生成二维码
         /// </summary>
         /// <param name="content">内容</param>

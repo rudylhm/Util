@@ -11,10 +11,11 @@ namespace Util.Log
     public class FileLog : BaseLog
     {
         private static string defaultPath = "\\Log\\";
-        private static string path = "";
+        private static string path;
         private static string fileName;
         public FileLog() : this(defaultPath)
         {
+
         }
 
         public FileLog(string savePath)
