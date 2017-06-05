@@ -88,7 +88,6 @@
     <Compile Include="Http\ResponseHelper.cs" />
     <Compile Include="Http\Security\HttpFormDecryptModule.cs" />
     <Compile Include="Http\Spanner.cs" />
-    <Compile Include="Log\BaseLog.cs" />
     <Compile Include="Log\FileLog.cs" />
     <Compile Include="Mail\MailHelper.cs" />
     <Compile Include="Maths\DateTimeCommon.cs" />

@@ -8,34 +8,31 @@ using System.IO;
 
 namespace Util.Log
 {
-    public class FileLog : BaseLog
+    public static class FileLog
     {
-        private static string defaultPath = "\\Log\\";
-        private static string path;
-        private static string fileName;
-        public FileLog() : this(defaultPath)
+        public static string defaultPath = "\\Log\\";
+
+        public static string path;
+        static FileLog()
         {
 
         }
 
-        public FileLog(string savePath)
+        public static bool WriteLog(string logType, string log)
         {
             var now = DateTime.Now;
-            string datePath = now.Year + "\\" + now.Month + "\\";
-            fileName = now.Day + ".log";
-        }
+            string realPath = path + now.Year + "\\" + now.Month + "\\";
 
-        protected override bool WriteLog(string logType, string log)
-        {
+            string fileName = now.Day + ".log";
             try
             {
-                if (!Directory.Exists(path))
+                if (!Directory.Exists(realPath))
                 {
-                    Directory.CreateDirectory(path);
+                    Directory.CreateDirectory(realPath);
                 }
-                FileStream fs = new FileStream(path + fileName, FileMode.OpenOrCreate);
+                FileStream fs = new FileStream(realPath + fileName, FileMode.Append);
                 StreamWriter sw = new StreamWriter(fs);
-                sw.Write("(" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "){" + logType + "}-----" + log);
+                sw.WriteLine("(" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "){" + logType + "}-----" + log);
                 sw.Flush();
                 sw.Close();
                 fs.Close();
@@ -47,6 +44,29 @@ namespace Util.Log
             }
         }
 
+        public static bool WriteFatalLog(string log)
+        {
+            return WriteLog("FATAL", log);
+        }
 
+        public static bool WriteErrorLog(string log)
+        {
+            return WriteLog("ERROR", log);
+        }
+
+        public static bool WriteWarnLog(string log)
+        {
+            return WriteLog("WARN", log);
+        }
+
+        public static bool WriteInfoLog(string log)
+        {
+            return WriteLog("INFO", log);
+        }
+
+        public static bool WriteDebugLog(string log)
+        {
+            return WriteLog("DEBUG", log);
+        }
     }
 }

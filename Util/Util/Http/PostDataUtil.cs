@@ -76,7 +76,6 @@ namespace Util.Http
         public static string PostWebData(String url, String postData)
         {
             if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("Empty String", "url can't be null or empty.");
-            if (string.IsNullOrEmpty(postData)) throw new ArgumentNullException("Empty String", "postData can't be null or empty.");
 
             //将字符串转化为Byte[]
             Byte[] byteArray = Encoding.UTF8.GetBytes(postData);
