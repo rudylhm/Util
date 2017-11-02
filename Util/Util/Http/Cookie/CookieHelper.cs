@@ -150,7 +150,11 @@ namespace Util.Http.Cookie
         /// <returns>键值</returns>
         public static string GetCookie(string name)
         {
-            return HttpContext.Current.Request.Cookies[name].Value;
+            if (HttpContext.Current.Request.Cookies[name] != null)
+            {
+                return HttpContext.Current.Request.Cookies[name].Value;
+            }
+            return null;
         }
 
     }

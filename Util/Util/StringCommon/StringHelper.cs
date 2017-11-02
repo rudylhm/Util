@@ -148,6 +148,16 @@ namespace Util.StringCommon
         }
 
         /// <summary>
+        /// 将字典的key值将按字母顺序排序
+        /// </summary>
+        /// <param name="dict">待排序字典</param>
+        /// <returns>排序后字典</returns>
+        public static Dictionary<string, object> DictValueSort(Dictionary<string, object> dict)
+        {
+            return dict.OrderBy(item => item.Value).ToDictionary(key => key.Key, value => value.Value);
+        }
+
+        /// <summary>
         /// 隐藏字符串中间的字符
         /// </summary>
         /// <param name="resourceStr">原始字符串</param>
@@ -221,6 +231,26 @@ namespace Util.StringCommon
                 midTargetStr += replaceStr;
             }
             return frontTargetStr + midTargetStr + bottomTargetStr;
+        }
+
+        /// <summary>
+        /// 将以分为单位的价格转换为以元为单位(不带￥符号)
+        /// </summary>
+        /// <param name="price">价格</param>
+        /// <returns></returns>
+        public static string FenPriceToYuan(string price)
+        {
+            return price.Substring(0, price.Length - 2) + "." + price.Substring(price.Length - 2, 2);
+        }
+
+        /// <summary>
+        /// 将以分为单位的价格转换为以元为单位(不带￥符号)
+        /// </summary>
+        /// <param name="price">价格</param>
+        /// <returns></returns>
+        public static string FenPriceToYuan(int price)
+        {
+            return FenPriceToYuan(price.ToString());
         }
 
     }
