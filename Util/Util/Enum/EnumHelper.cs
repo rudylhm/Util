@@ -24,6 +24,21 @@ namespace Util.EnumCommon
             return description;
         }
 
+        /// <summary>
+        /// 遍历Enum
+        /// </summary>
+        /// <param name="enumType">typeof(enum)</param>
+        /// <returns>字典集</returns>
+        public static Dictionary<int, string> ErgodicEnum(Type enumType)
+        {
+            Dictionary<int, string> enumDict = new Dictionary<int, string>();
+            foreach (var item in Enum.GetValues(enumType))
+            {
+                enumDict[(int)item] = item.ToString();
+            }
+            return enumDict;
+        }
+
         //public static int IntToEnum()
         //{
 

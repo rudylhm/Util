@@ -13,6 +13,36 @@ namespace Util.StringCommon
     */
     public class StringHelper
     {
+        private static List<string> letterArray = new List<string>()
+        {
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+        };
+
         public static List<int> AutoSplitStringListToIntList(string stringList, char splitChar = ',')
         {
             List<int> resultList = new List<int>();
@@ -250,7 +280,7 @@ namespace Util.StringCommon
         /// <returns></returns>
         public static string FenPriceToYuan(int price)
         {
-            return FenPriceToYuan(price.ToString());
+            return FenPriceToYuan(price.ToString("D3"));
         }
 
         /// <summary>
@@ -321,6 +351,21 @@ namespace Util.StringCommon
                 res += NumberToChinese(int.Parse(str.Substring(1, str.Length - 1)));
             }
             return res;
+        }
+
+        /// <summary>
+        /// 获取对应索引的字母
+        /// </summary>
+        /// <param name="index">索引(范围:1~26)</param>
+        /// <returns></returns>
+        public static string GetIndexLetter(int index)
+        {
+            index -= 1;
+            if (index < 0 || index > 25)
+            {
+                return null;
+            }
+            return letterArray[index];
         }
     }
 }

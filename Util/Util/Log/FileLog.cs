@@ -15,7 +15,7 @@ namespace Util.Log
         public static string path;
         static FileLog()
         {
-
+            path = HttpContext.Current.Server.MapPath("/Log/");
         }
 
         public static bool WriteLog(string logType, string log)
