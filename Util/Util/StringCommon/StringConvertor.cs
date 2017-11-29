@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Reflection;
+using System.Web;
 
 namespace Util.StringCommon
 {
@@ -50,6 +51,22 @@ namespace Util.StringCommon
                 return string.Empty;
 
             return Convert.ToString(source);
+        }
+
+        public static string ToSaftHtmlString(object source)
+        {
+            if (source == null)
+                return string.Empty;
+
+            var str = Convert.ToString(source);
+            return HttpUtility.HtmlEncode(str);
+        }
+
+        public static string ToSaftHtmlNonReachTextBoxString(object source)
+        {
+            var str = ToSaftHtmlString(source);
+            str = str.Replace(" ", "&nbsp;");
+            return str.Replace("/n", "<br/>");
         }
 
         public static long ToLong(object source, long failValue)
