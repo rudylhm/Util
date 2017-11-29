@@ -34,7 +34,12 @@ namespace Util.EnumCommon
             Dictionary<int, string> enumDict = new Dictionary<int, string>();
             foreach (var item in Enum.GetValues(enumType))
             {
-                enumDict[(int)item] = item.ToString();
+                var enumItem = item as Enum;
+                if (enumItem == null)
+                {
+                    continue;
+                }
+                enumDict[(int)item] = GetEnumDescription(enumItem);
             }
             return enumDict;
         }
