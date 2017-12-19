@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using com.google.zxing;
+using com.google.zxing.common;
 using ByteMatrix = com.google.zxing.common.ByteMatrix;
 using MultiFormatWriter = com.google.zxing.MultiFormatWriter;
 
@@ -62,6 +63,20 @@ namespace Util.BarCode
             ByteMatrix byteMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height);
             return toBitmap(byteMatrix);
         }
+
+        /// <summary>
+        /// 解析二维码
+        /// </summary>
+        /// <param name="qrCode">二维码的Bitmap</param>
+        /// <returns></returns>
+        public static string DecodeQRCode(Bitmap qrCode)
+        {
+            LuminanceSource source = new RGBLuminanceSource(qrCode, qrCode.Width, qrCode.Height);
+            var bBitmap = new BinaryBitmap(new HybridBinarizer(source));
+            var result = new MultiFormatReader().decode(bBitmap);
+            return result.Text;
+        }
+
 
         private static Bitmap toBitmap(ByteMatrix matrix)
         {

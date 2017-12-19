@@ -97,7 +97,7 @@
     <Compile Include="Http\HttpClient.cs" />
     <Compile Include="Http\HttpHelper.cs" />
     <Compile Include="Http\IPHelper.cs" />
-    <Compile Include="Http\PostDataUtil.cs" />
+    <Compile Include="Http\HttpDataUtil.cs" />
     <Compile Include="Http\ResponseHelper.cs" />
     <Compile Include="Http\Security\HttpFormDecryptModule.cs" />
     <Compile Include="Http\Spanner.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,7 +14,7 @@ namespace Util.Http
     * 创建时间：2015/1/21 11:55:32
     * 功能：
     */
-    public class PostDataUtil
+    public class HttpDataUtil
     {
         /// <summary>
         /// 创建HttpWebRequest对象(POST方式)
@@ -167,6 +168,41 @@ namespace Util.Http
                     {
                         //返回获得的请求数据
                         return reader.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 通过GET方式提交数据到url(返回Bitmap)
+        /// </summary>
+        /// <param name="url">url</param>
+        /// <param name="getData">请求的参数</param>
+        /// <param name="compress">数据压缩枚举</param>
+        /// <exception cref="ArgumentNullException">Thrown when url or postData is null or empty</exception>
+        /// <exception cref="System.Text.EncoderFallbackException">System.Text.EncoderFallbackException</exception>
+        /// <returns>从页面返回的数据</returns>
+        public static Bitmap GetWebImgData(string url, string getData)
+        {
+            if (string.IsNullOrEmpty(url)) throw new ArgumentNullException("Empty String", "url can't be null or empty.");
+
+            try
+            {
+                //构造HttpWebRequest对象
+                HttpWebRequest request = CreateGetWebRequest(url, getData);
+
+                //获得请求的回应
+                using (WebResponse response = request.GetResponse())
+                {
+                    //构造流读取对象
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        //返回获得的请求数据
+                        return new Bitmap(Image.FromStream(stream));
                     }
                 }
             }
