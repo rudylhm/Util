@@ -47,13 +47,28 @@ namespace Util.Security
 
             return sBuilder.ToString();
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceString"></param>
+        /// <param name="encryptKey"></param>
+        /// <returns></returns>
+        public static byte[] GetHmacSha1ByteArray(string sourceString, string encryptKey)
+        {
+            if (string.IsNullOrWhiteSpace(sourceString) || string.IsNullOrEmpty(encryptKey)) throw new ArgumentNullException("Empty", "sourceString or encryptKey can't be empty.");
+
+            //构造HMACSHA1对象，并计算哈希值
+            HMACSHA1 hmacSHA1 = new HMACSHA1(Encoding.UTF8.GetBytes(encryptKey));
+            return hmacSHA1.ComputeHash(Encoding.UTF8.GetBytes(sourceString));
+        }
+
         /// <summary>
         /// SH1加密
         /// </summary>
         /// <param name="str_sha1_in">待加密字符串</param>
         /// <returns></returns>
-        static public string SHA1_Hash(string str_sha1_in)
+        public static string SHA1_Hash(string str_sha1_in)
         {
             SHA1 sha1 = new SHA1CryptoServiceProvider();
             byte[] bytes_sha1_in = UTF8Encoding.Default.GetBytes(str_sha1_in);
